@@ -1,0 +1,43 @@
+import random
+print("H A N G M A N")
+
+def game(r_word):
+  word_list = ('python', 'java', 'kotlin', 'javascript')
+  r_word = random.choice(word_list)
+  hidden = "-" * len(r_word)
+  attempts = 8
+  wrong_char = []
+  while attempts > 0:
+        if hidden != r_word:
+            print()
+            print(hidden)
+            char = str(input("Input a letter: "))
+            if len(char) != 1:                         ## wrong length
+                print("You should print a single letter")
+            elif char.isalpha() is False or char.islower() is False:  ## wrong format
+                print("It is not an ASCII lowercase letter")
+            elif char in hidden or char in wrong_char:
+                print("You already typed this letter")
+            elif char not in r_word:
+                print("No such letter in the word")
+                attempts -= 1
+                wrong_char.append(char)      
+            for n in range(len(r_word)): 
+              if char == r_word[n]:
+                  hidden = hidden[:n] + char + hidden[n+1:]
+        else:
+            print("You guessed the word!")
+            print("You survived!")
+            break
+  if attempts == 0 and hidden != r_word:
+    print("You are hanged!")
+choice = ""
+word_list = ('python', 'java', 'kotlin', 'javascript')
+r_word = random.choice(word_list)
+while choice != "play" or choice != "exit":
+  choice = str(input('Type "play" to play the game, "exit" to quit: '))
+  if choice == "exit":
+    break
+  if choice == "play":
+    game(r_word)
+    break
